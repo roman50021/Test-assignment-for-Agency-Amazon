@@ -6,9 +6,6 @@ import java.util.Collections;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
-/**
- * @author Pavlo Mrochko
- */
 @Service
 public class CampaignReportService {
 
