@@ -27,12 +27,18 @@ public class CampaignStatService {
   private final CampaignService campaignService;
   private final CampaignReportService campaignReportService;
 
+  // отримання статистики кампаній
   public Map<Long, SPCampaignStatistic> getSPCampaignsStatistics(
-      String accountId, String profileId,
-      @Nullable List<String> portfolioIds, @Nullable List<String> campaignIds,
-      String startDate, String endDate,
-      @Nullable Integer pageIndex, @Nullable Integer pageSize,
-      @Nullable Metric sortMetric, @Nullable DirectionType sortDirection
+      String accountId,
+      String profileId,
+      @Nullable List<String> portfolioIds,
+      @Nullable List<String> campaignIds,
+      String startDate,
+      String endDate,
+      @Nullable Integer pageIndex,
+      @Nullable Integer pageSize,
+      @Nullable Metric sortMetric, // Метрика для сортировки
+      @Nullable DirectionType sortDirection
   ) {
     List<Long> campaignIdsLong = campaignIds == null ? null : campaignIds.stream().map(Long::parseLong).toList();
 
@@ -45,8 +51,14 @@ public class CampaignStatService {
     for (SPCampaignReport report : reports) {
       Long campaignId = report.getCampaignId();
 
-      campaignAnalyticMap.computeIfAbsent(campaignId, k -> new SPCampaignStatistic(report))
-          .add(new SPCampaignStatistic(report));
+      campaignAnalyticMap.computeIfAbsent(campaignId, k -> SPCampaignStatistic.createEmptyStatistic(
+                      report.getProfileId(),
+                      Long.valueOf(report.getPortfolioId()),
+                      report.getDate(),
+                      report.getCampaignId(),
+                      report.getCampaignName(),
+                      report.getCampaignStatus()
+              )).add(new SPCampaignStatistic(report));
     }
 
     // Get all enabled SP campaigns by profile and portfolio

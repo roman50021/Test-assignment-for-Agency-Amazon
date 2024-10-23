@@ -28,34 +28,25 @@ public abstract class CampaignStatistic<T extends CampaignStatistic<T>> implemen
   protected Long profileId;
 
   @JsonIgnore
-  protected Long portfolioId;
+  protected Long portfolioId; // id об'єднує кілька кампаній
 
   @JsonIgnore
   protected String date;
 
   protected Long campaignId;
-
   protected String campaignName;
-
   protected String state;
 
-  protected BigDecimal advertisingCostOfSales;
-
-  protected BigDecimal clickThroughRate;
-
-  protected BigDecimal costPerClick;
-
-  protected BigDecimal conversion;
+  protected BigDecimal advertisingCostOfSales; // відношення вартості реклами до продажів
+  protected BigDecimal clickThroughRate; // відношення кліків до показів
+  protected BigDecimal costPerClick; // вартість одного кліка
+  protected BigDecimal conversion; // відношення покупок до кількості кліків
 
   protected Integer clicks;
-
   protected BigDecimal cost;
-
-  protected Integer impressions;
-
+  protected Integer impressions; // кількість показів
   protected BigDecimal sales;
-
-  protected Integer purchases;
+  protected Integer purchases; // кількість покупок
 
   @Getter(AccessLevel.PROTECTED)
   @Setter(AccessLevel.NONE)

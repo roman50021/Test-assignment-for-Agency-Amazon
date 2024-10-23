@@ -2,6 +2,7 @@ package com.example.testtaskagencyamazon.data;
 
 import java.io.Serializable;
 
+// напрямки сортування
 public enum DirectionType implements Serializable {
 
   ASC("ASC"),

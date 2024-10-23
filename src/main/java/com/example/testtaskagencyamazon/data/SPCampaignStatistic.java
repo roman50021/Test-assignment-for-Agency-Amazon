@@ -18,8 +18,10 @@ import lombok.ToString;
 @ToString
 public class SPCampaignStatistic extends CampaignStatistic<SPCampaignStatistic> implements Serializable {
 
+  // кількість покупок одного і того ж товару
   private Integer purchasesSameSku;
 
+  // приймає звіт та ініціалізує статистику кампанії
   public SPCampaignStatistic(SPCampaignReport report) {
     super(report.getProfileId(),
         report.getPortfolioId() == null ? null : Long.valueOf(report.getPortfolioId()),
@@ -41,6 +43,7 @@ public class SPCampaignStatistic extends CampaignStatistic<SPCampaignStatistic> 
       this.purchasesSameSku = 0;
   }
 
+  // додавання даних іншої статистики в поточну
   @Override
   public SPCampaignStatistic add(SPCampaignStatistic other) {
     this.incrementCounter();
@@ -58,6 +61,7 @@ public class SPCampaignStatistic extends CampaignStatistic<SPCampaignStatistic> 
     return this;
   }
 
+  // фіналізація статистики
   @Override
   public void finalise() {
     super.finalise();
@@ -68,6 +72,7 @@ public class SPCampaignStatistic extends CampaignStatistic<SPCampaignStatistic> 
     resetCounter();
   }
 
+  // створення порожньої статистики кампанії
   public static SPCampaignStatistic createEmptyStatistic(
       Long profileId, Long portfolioId, String date, Long campaignId, String campaignName, String state
   ) {
